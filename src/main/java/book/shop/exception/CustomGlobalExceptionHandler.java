@@ -16,7 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class CustomExceptionGlobalHandler extends ResponseEntityExceptionHandler {
+public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
@@ -31,6 +31,11 @@ public class CustomExceptionGlobalHandler extends ResponseEntityExceptionHandler
                 .toList();
         body.put("errors", errors);
         return super.handleMethodArgumentNotValid(ex, headers, status, request);
+    }
+
+    public ResponseEntity<String> handleRegistrationException(RegistrationException ex) {
+        return new ResponseEntity<>("Failed registration "
+                + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     private String getErrorMessage(ObjectError e) {

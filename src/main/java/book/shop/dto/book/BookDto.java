@@ -1,4 +1,4 @@
-package book.shop.dto;
+package book.shop.dto.book;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
-public class CreateBookRequestDto {
+public class BookDto {
     @NotEmpty
     private String title;
     @NotEmpty
