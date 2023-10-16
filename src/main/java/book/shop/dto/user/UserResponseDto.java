@@ -2,7 +2,7 @@ package book.shop.dto.user;
 
 import book.shop.model.Role;
 import jakarta.validation.constraints.NotEmpty;
-import java.util.List;
+import java.util.Set;
 import lombok.Data;
 import org.hibernate.validator.constraints.UniqueElements;
 
@@ -21,5 +21,5 @@ public class UserResponseDto {
 
     private String shippingAddress;
 
-    private List<Role.RoleName> roles;
+    private Set<Role> roles;
 }

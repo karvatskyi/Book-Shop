@@ -1,4 +1,4 @@
-package book.shop.service;
+package book.shop.service.book;
 
 import book.shop.dto.book.BookDto;
 import book.shop.dto.book.BookSearchParametersDto;
@@ -26,7 +26,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
-        Book book = bookMapper.toModel(requestDto);
+        Book book = bookMapper.toEntity(requestDto);
         return bookMapper.toDto(bookRepository.save(book));
     }
 

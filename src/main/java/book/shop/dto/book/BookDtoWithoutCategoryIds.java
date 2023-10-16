@@ -3,12 +3,10 @@ package book.shop.dto.book;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Data;
 
 @Data
-public class BookDto {
+public class BookDtoWithoutCategoryIds {
     @NotEmpty
     private String title;
     @NotEmpty
@@ -22,6 +20,4 @@ public class BookDto {
     private String description;
     @NotEmpty
     private String coverImage;
-    @NotEmpty
-    private List<Long> categories = new ArrayList<>();
 }
