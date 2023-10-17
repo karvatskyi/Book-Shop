@@ -1,6 +1,5 @@
 package book.shop.service.category;
 
-import book.shop.dto.book.BookDto;
 import book.shop.dto.category.CategoryDto;
 import java.util.List;
 
@@ -11,9 +10,7 @@ public interface CategoryService {
 
     CategoryDto save(CategoryDto categoryDto);
 
-    CategoryDto update(Long id, CategoryDto categoryDto);
+    void update(Long id, CategoryDto categoryDto);
 
     void deleteById(Long id);
-
-    List<BookDto> getBookByCategoryId(Long id);
 }

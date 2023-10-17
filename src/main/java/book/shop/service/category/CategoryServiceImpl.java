@@ -1,6 +1,5 @@
 package book.shop.service.category;
 
-import book.shop.dto.book.BookDto;
 import book.shop.dto.category.CategoryDto;
 import book.shop.exception.EntityNotFoundException;
 import book.shop.mapper.CategoryMapper;
@@ -38,17 +37,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto update(Long id, CategoryDto categoryDto) {
-        return categoryRepository.updateById(id, categoryDto);
+    public void update(Long id, CategoryDto categoryDto) {
+        Category category = categoryMapper.toEntity(categoryDto);
+        categoryRepository.save(category);
     }
 
     @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public List<BookDto> getBookByCategoryId(Long id) {
-        return categoryRepository.getBookByCategoryId(id);
     }
 }

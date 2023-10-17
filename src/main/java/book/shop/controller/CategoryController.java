@@ -2,6 +2,7 @@ package book.shop.controller;
 
 import book.shop.dto.book.BookDto;
 import book.shop.dto.category.CategoryDto;
+import book.shop.repository.book.BookRepository;
 import book.shop.service.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
 
     private final CategoryService categoryService;
+
+    private final BookRepository bookRepository;
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
@@ -38,18 +42,18 @@ public class CategoryController {
         return categoryService.findAll();
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     @Operation(summary = "Get category by id", description = "Get available category")
-    public CategoryDto getCategoryById(Long id) {
+    public CategoryDto getCategoryById(@PathVariable Long id) {
         return categoryService.getById(id);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/updateBookById")
+    @PostMapping("/updateCategoryById")
     @Operation(summary = "Update a category by id", description = "Update a category by id")
     @PreAuthorize("hasRole('ADMIN')")
-    public CategoryDto updateCategory(Long id, CategoryDto categoryDto) {
-        return categoryService.update(id, categoryDto);
+    public void updateCategory(Long id, CategoryDto categoryDto) {
+        categoryService.update(id, categoryDto);
     }
 
     @DeleteMapping
@@ -63,6 +67,6 @@ public class CategoryController {
     @GetMapping(value = "/{id}/books")
     @Operation(summary = "Get book", description = "Get available book by category id")
     public List<BookDto> getBooksByCategory(Long id) {
-        return categoryService.getBookByCategoryId(id);
+        return bookRepository.findAllByCategoryId(id);
     }
 }
