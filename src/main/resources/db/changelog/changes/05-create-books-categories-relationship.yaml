@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-books-categories-relationship
+      author: karvatskyi
+      changes:
+        - addColumn:
+            tableName: categories
+            columns:
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseTableName: categories
+            baseColumnNames: book_id
+            referencedTableName: books
+            referencedColumnNames: id
+            constraintName: FK_categories_book_id

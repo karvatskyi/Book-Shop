@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-books-table
+      id: create-users-table
       author: karvatskyi
       changes:
         - createTable:
-            tableName: books
+            tableName: users
             columns:
               - column:
                   name: id
@@ -14,31 +14,32 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: titles
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: authors
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: isbn
+                  name: emails
                   type: varchar(255)
                   constraints:
                     nullable: false
                     unique: true
               - column:
-                  name: prices
-                  type: decimal
+                  name: passwords
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: first_names
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: description
+                  name: last_names
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: shippingAddress
                   type: varchar(255)
               - column:
-                  name: cover_image
+                  name: roles
                   type: varchar(255)
               - column:
                   name: is_deleted
@@ -46,8 +47,3 @@ databaseChangeLog:
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
-              - column:
-                  name: category
-                  type: bigint
-                  constraints:
-                    nullable: true

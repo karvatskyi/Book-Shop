@@ -2,32 +2,34 @@ package book.shop.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import java.util.Set;
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @Entity
-@Table(name = "role")
+@Table(name = "role_name")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "roleName", nullable = false, unique = true)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, unique = true)
     private RoleName roleName;
 
-    public enum RoleName implements GrantedAuthority {
-        ADMIN,
-        USER;
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 
-        @Override
-        public String getAuthority() {
-            return name();
-        }
+    public enum RoleName {
+        ADMIN,
+        USER
     }
 }
