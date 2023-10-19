@@ -65,7 +65,7 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/{id}/books")
-    @Operation(summary = "Get book", description = "Get available book by category id")
+    @Operation(summary = "Get books", description = "Get available book by category id")
     public List<BookDto> getBooksByCategory(Long id) {
         return bookRepository.findAllByCategoryId(id);
     }

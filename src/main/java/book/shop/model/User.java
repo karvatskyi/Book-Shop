@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.Collection;
 import java.util.HashSet;
@@ -44,6 +45,10 @@ public class User implements UserDetails {
 
     @Column(name = "shipping_address")
     private String shippingAddress;
+
+    @OneToOne
+    @JoinColumn(name = "shopping_carts", nullable = false)
+    private ShoppingCart shoppingCart;
 
     @ManyToMany
     @JoinTable(
