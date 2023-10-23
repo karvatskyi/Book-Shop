@@ -5,8 +5,10 @@ import book.shop.dto.user.UserResponseDto;
 import book.shop.exception.EntityNotFoundException;
 import book.shop.exception.RegistrationException;
 import book.shop.mapper.UserMapper;
+import book.shop.model.Order;
 import book.shop.model.User;
 import book.shop.repository.user.UserRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,5 +45,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't get shopping "
                         + "cart by id: " + id));
+    }
+
+    @Override
+    public List<Order> getHistory(User user) {
+        return user.getOrderHistory();
     }
 }

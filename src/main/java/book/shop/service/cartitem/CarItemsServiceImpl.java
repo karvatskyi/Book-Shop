@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CarItemsServiceImpl implements CartItemService {
-    private CartItemsRepository cartItemsRepository;
-
     private final BookService bookService;
 
     private final BookMapper bookMapper;
+
+    private final CartItemsRepository cartItemsRepository;
 
     @Override
     public CartItem getById(Long id) {

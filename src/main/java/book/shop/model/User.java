@@ -8,10 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
@@ -49,6 +51,17 @@ public class User implements UserDetails {
     @OneToOne
     @JoinColumn(name = "shopping_carts", nullable = false)
     private ShoppingCart shoppingCart;
+
+    @ManyToOne
+    private Order order;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_order",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
+    private List<Order> orderHistory;
 
     @ManyToMany
     @JoinTable(

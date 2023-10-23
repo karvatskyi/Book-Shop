@@ -53,7 +53,6 @@ public class BookController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping
-    @Operation(summary = "Delete a book", description = "Delete a books")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         bookService.deleteById(id);
