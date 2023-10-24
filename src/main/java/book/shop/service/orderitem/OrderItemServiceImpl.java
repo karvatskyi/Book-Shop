@@ -1,5 +1,7 @@
 package book.shop.service.orderitem;
 
+import book.shop.dto.orderitem.OrderItemDto;
+import book.shop.mapper.OrderItemMapper;
 import book.shop.model.Order;
 import book.shop.model.OrderItem;
 import book.shop.repository.order.OrderRepository;
@@ -12,14 +14,19 @@ import org.springframework.stereotype.Service;
 public class OrderItemServiceImpl implements OrderItemService {
     private final OrderRepository orderRepository;
 
+    private final OrderItemMapper orderItemMapper;
+
     @Override
-    public List<OrderItem> getAllItemFromOrder(Order order) {
-        return orderRepository.getReferenceById(order.getId()).getOrderItems();
+    public List<OrderItemDto> getAllItemFromOrder(Order order) {
+        return orderRepository.getReferenceById(order.getId()).getOrderItems().stream()
+                .map(orderItemMapper::toDto)
+                .toList();
     }
 
     @Override
-    public OrderItem getItemFromOrder(Order order, Long itemId) {
-        return orderRepository.getReferenceById(order.getId())
-                .getOrderItems().get(Math.toIntExact(itemId));
+    public OrderItemDto getItemFromOrder(Order order, Long itemId) {
+        List<OrderItem> orderItems = orderRepository
+                .getReferenceById(order.getId()).getOrderItems();
+        return orderItemMapper.toDto(orderItems.get(itemId.intValue()));
     }
 }

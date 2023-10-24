@@ -1,5 +1,6 @@
 package book.shop.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import java.math.BigDecimal;
 import lombok.Data;
 
@@ -17,15 +18,18 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-    @NotEmpty
+
     @OneToOne
+    @PrimaryKeyJoinColumn
     private Book book;
-    @NotEmpty
+
+    @Column(name = "quantities")
     private int quantity;
-    @NotEmpty
+
+    @Column(name = "prices", nullable = false)
     private BigDecimal price;
 }

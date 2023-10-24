@@ -1,5 +1,6 @@
 package book.shop.controller;
 
+import book.shop.dto.order.OrderDto;
 import book.shop.model.Order;
 import book.shop.model.ShoppingCart;
 import book.shop.model.Status;
@@ -27,7 +28,7 @@ public class OrderController {
     }
 
     @GetMapping("/history")
-    public List<Order> getOrderHistory(Order order) {
+    public List<OrderDto> getOrderHistory(Order order) {
         return userService.getHistory(order.getUser());
     }
 

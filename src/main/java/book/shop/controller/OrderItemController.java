@@ -1,7 +1,7 @@
 package book.shop.controller;
 
+import book.shop.dto.orderitem.OrderItemDto;
 import book.shop.model.Order;
-import book.shop.model.OrderItem;
 import book.shop.service.order.OrderService;
 import book.shop.service.orderitem.OrderItemService;
 import java.util.List;
@@ -18,11 +18,11 @@ public class OrderItemController {
     private final OrderItemService orderItemService;
 
     @GetMapping(value = "/getAllItems")
-    public List<OrderItem> getAllItemsFromOrder(Order order) {
+    public List<OrderItemDto> getAllItemsFromOrder(Order order) {
         return orderItemService.getAllItemFromOrder(order);
     }
 
-    public OrderItem getItemFromOrder(Order order, Long itemId) {
+    public OrderItemDto getItemFromOrder(Order order, Long itemId) {
         return orderItemService.getItemFromOrder(order, itemId);
     }
 }

@@ -1,5 +1,6 @@
 package book.shop.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,5 +27,6 @@ public class ShoppingCart {
     private User user;
 
     @OneToMany(mappedBy = "shoppingCart")
+    @Column(name = "cart_items")
     private Set<CartItem> cartItems;
 }

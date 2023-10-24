@@ -1,15 +1,16 @@
 package book.shop.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,18 +23,25 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty
+
     @ManyToOne
+    @JoinColumn(name = "order")
     private User user;
-    @NotEmpty
+
     @OneToOne
+    @PrimaryKeyJoinColumn
     private Status status;
-    @Positive
+
+    @Column(name = "total_prices", nullable = false)
     private BigDecimal totalPrice;
-    @NotEmpty
+
+    @Column(name = "order_dates", nullable = false)
     private LocalDateTime orderDate;
-    @NotEmpty
+
+    @Column(name = "shipping_addresses")
     private String shippingAddress;
+
     @OneToMany(mappedBy = "order")
+    @Column(name = "order_items")
     private List<OrderItem> orderItems;
 }

@@ -1,6 +1,8 @@
 package book.shop.service.cartitem;
 
+import book.shop.dto.caritem.CartItemDto;
 import book.shop.mapper.BookMapper;
+import book.shop.mapper.CartItemMapper;
 import book.shop.model.CartItem;
 import book.shop.model.ShoppingCart;
 import book.shop.repository.cartitem.CartItemsRepository;
@@ -17,19 +19,25 @@ public class CarItemsServiceImpl implements CartItemService {
 
     private final CartItemsRepository cartItemsRepository;
 
+    private final CartItemMapper cartItemMapper;
+
     @Override
-    public CartItem getById(Long id) {
-        return cartItemsRepository.getReferenceById(id);
+    public CartItemDto getById(Long id) {
+        return cartItemMapper.toDto(cartItemsRepository.getReferenceById(id));
     }
 
     @Override
-    public CartItem save(Long id) {
-        return cartItemsRepository.save(cartItemsRepository.getReferenceById(id));
+    public CartItemDto save(Long id) {
+        return cartItemMapper.toDto(cartItemsRepository
+                .save(cartItemsRepository.getReferenceById(id)));
     }
 
     @Override
-    public CartItem create(ShoppingCart shoppingCart, Long bookId, int quantity) {
-        return new CartItem(shoppingCart, bookMapper
-                .toModelFromDto(bookService.findBookById(bookId)), quantity);
+    public CartItemDto create(ShoppingCart shoppingCart, Long bookId, int quantity) {
+        return cartItemMapper.toDto(new CartItem(
+                shoppingCart,
+                bookMapper.toModelFromDto(bookService.findBookById(bookId)),
+                quantity)
+        );
     }
 }

@@ -1,7 +1,11 @@
 package book.shop.service.shoppingcart;
 
 import book.shop.dto.book.BookDto;
+import book.shop.dto.caritem.CartItemDto;
+import book.shop.dto.shoppingcart.ShoppingCartDto;
 import book.shop.mapper.BookMapper;
+import book.shop.mapper.CartItemMapper;
+import book.shop.mapper.ShoppingCartMapper;
 import book.shop.model.CartItem;
 import book.shop.model.ShoppingCart;
 import book.shop.repository.shoppingcart.ShoppingCartRepository;
@@ -23,21 +27,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final BookMapper bookMapper;
 
+    private final ShoppingCartMapper shoppingCartMapper;
+
+    private final CartItemMapper cartItemMapper;
+
     @Override
-    public ShoppingCart addItemToShoppingCart(Long userId, Long bookId, int quantity) {
-        ShoppingCart shoppingCart = userService.findUserById(userId).getShoppingCart();
-        CartItem cartItem = cartItemService.create(shoppingCart, bookId, quantity);
-        cartItemService.save(cartItem.getId());
+    public ShoppingCartDto addItemToShoppingCart(Long userId, Long bookId, int quantity) {
+        ShoppingCartDto shoppingCartDto = userService.findUserById(userId).getShoppingCart();
+        ShoppingCart shoppingCart = shoppingCartMapper.toEntity(shoppingCartDto);
         Set<CartItem> cartItems = shoppingCart.getCartItems();
-        cartItems.add(cartItem);
+        CartItemDto cartItemDto = cartItemService.create(shoppingCart, bookId, quantity);
+        cartItems.add(cartItemMapper.toEntity(cartItemDto));
         shoppingCart.setCartItems(cartItems);
         shoppingCartRepository.save(shoppingCart);
-        return shoppingCart;
+        return shoppingCartMapper.toDto(shoppingCart);
     }
 
     @Override
-    public ShoppingCart updateQuantityInShoppingCart(int quantity, Long userId, Long itemId) {
-        ShoppingCart shoppingCart = userService.findUserById(userId).getShoppingCart();
+    public ShoppingCartDto updateQuantityInShoppingCart(int quantity, Long userId, Long itemId) {
+        ShoppingCartDto shoppingCartDto = userService.findUserById(userId).getShoppingCart();
+        ShoppingCart shoppingCart = shoppingCartMapper.toEntity(shoppingCartDto);
         Set<CartItem> cartItems = shoppingCart.getCartItems();
         CartItem itemWhatNeedToUpdate = null;
         for (CartItem cartItem : cartItems) {
@@ -49,12 +58,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             cartItems.add(itemWhatNeedToUpdate);
         }
         shoppingCart.setCartItems(cartItems);
-        return shoppingCartRepository.save(shoppingCart);
+        return shoppingCartMapper.toDto(shoppingCartRepository.save(shoppingCart));
     }
 
     @Override
     public void deleteBookFromShoppingCart(Long userId, BookDto bookDto) {
-        ShoppingCart shoppingCart = userService.findUserById(userId).getShoppingCart();
+        ShoppingCartDto shoppingCart = userService.findUserById(userId).getShoppingCart();
         Set<CartItem> cartItems = shoppingCart.getCartItems();
         for (CartItem cartItem : cartItems) {
             BookDto bookDtoFromCartItem = bookMapper.toDto(cartItem.getBook());
@@ -63,6 +72,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 break;
             }
         }
-        shoppingCartRepository.save(shoppingCart);
+        shoppingCartRepository.save(shoppingCartMapper.toEntity(shoppingCart));
     }
 }
