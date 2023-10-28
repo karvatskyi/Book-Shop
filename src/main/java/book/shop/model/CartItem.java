@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -26,12 +25,10 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "shopping_cart_id")
-    @NotEmpty
     private ShoppingCart shoppingCart;
 
     @OneToOne
     @PrimaryKeyJoinColumn
-    @NotEmpty
     private Book book;
 
     @Column(name = "quantities", nullable = false)

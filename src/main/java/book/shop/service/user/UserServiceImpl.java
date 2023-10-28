@@ -1,12 +1,15 @@
 package book.shop.service.user;
 
+import book.shop.dto.order.OrderDto;
 import book.shop.dto.user.UserRegistrationRequestDto;
 import book.shop.dto.user.UserResponseDto;
 import book.shop.exception.EntityNotFoundException;
 import book.shop.exception.RegistrationException;
+import book.shop.mapper.OrderMapper;
 import book.shop.mapper.UserMapper;
 import book.shop.model.User;
 import book.shop.repository.user.UserRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final UserMapper userMapper;
+
+    private final OrderMapper orderMapper;
 
     @Override
     public UserResponseDto register(UserRegistrationRequestDto requestDto)
@@ -39,9 +44,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(Long id) {
-        return userRepository.findById(id)
+    public UserResponseDto findUserById(Long id) {
+        return userMapper.toDto(userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't get shopping "
-                        + "cart by id: " + id));
+                        + "cart by id: " + id)));
+    }
+
+    @Override
+    public List<OrderDto> getHistory(User user) {
+        return user.getOrderHistory().stream().map(orderMapper::toDto).toList();
     }
 }

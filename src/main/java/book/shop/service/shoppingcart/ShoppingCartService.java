@@ -1,12 +1,12 @@
 package book.shop.service.shoppingcart;
 
 import book.shop.dto.book.BookDto;
-import book.shop.model.ShoppingCart;
+import book.shop.dto.shoppingcart.ShoppingCartDto;
 
 public interface ShoppingCartService {
-    ShoppingCart addItemToShoppingCart(Long userId, Long bookId, int quantity);
+    ShoppingCartDto addItemToShoppingCart(Long userId, Long bookId, int quantity);
 
-    ShoppingCart updateQuantityInShoppingCart(int quantity, Long userId, Long itemId);
+    ShoppingCartDto updateQuantityInShoppingCart(int quantity, Long userId, Long itemId);
 
     void deleteBookFromShoppingCart(Long userId, BookDto bookDto);
 }

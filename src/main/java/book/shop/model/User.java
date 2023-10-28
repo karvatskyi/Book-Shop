@@ -8,10 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
@@ -26,7 +28,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Where(clause = "is_deleted=false")
 @Table(name = "users")
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,9 +47,23 @@ public class User implements UserDetails {
     @Column(name = "shipping_address")
     private String shippingAddress;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
     @OneToOne
     @JoinColumn(name = "shopping_carts", nullable = false)
     private ShoppingCart shoppingCart;
+
+    @ManyToOne
+    private Order order;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_order",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
+    private List<Order> orderHistory;
 
     @ManyToMany
     @JoinTable(
@@ -57,9 +72,6 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
-
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

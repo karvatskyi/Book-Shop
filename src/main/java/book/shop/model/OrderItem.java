@@ -6,27 +6,30 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import java.util.Set;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import java.math.BigDecimal;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
-@RequiredArgsConstructor
-@Table(name = "shopping_carts")
-public class ShoppingCart {
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "users_id", nullable = false)
-    private User user;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    @OneToMany(mappedBy = "shoppingCart")
-    @Column(name = "cart_items")
-    private Set<CartItem> cartItems;
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Book book;
+
+    @Column(name = "quantities")
+    private int quantity;
+
+    @Column(name = "prices", nullable = false)
+    private BigDecimal price;
 }

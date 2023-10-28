@@ -1,7 +1,7 @@
 package book.shop.controller;
 
 import book.shop.dto.book.BookDto;
-import book.shop.model.ShoppingCart;
+import book.shop.dto.shoppingcart.ShoppingCartDto;
 import book.shop.service.shoppingcart.ShoppingCartService;
 import book.shop.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,20 +29,20 @@ public class ShoppingCartController {
     @GetMapping(value = "/getCart")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get shopping cart", description = "Get available shopping cart")
-    ShoppingCart getUserShoppingCart(Long id) {
+    ShoppingCartDto getUserShoppingCart(Long id) {
         return userService.findUserById(id).getShoppingCart();
     }
 
     @PostMapping("/addToCart")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Add book to cart", description = "Add book to shopping cart")
-    ShoppingCart addItemToShoppingCart(Long bookId, Long userId, int quantity) {
+    ShoppingCartDto addItemToShoppingCart(Long bookId, Long userId, int quantity) {
         return shoppingCartService.addItemToShoppingCart(userId, bookId, quantity);
     }
 
     @PostMapping("/update")
     @PreAuthorize("hasRole('USER')")
-    ShoppingCart updateQuantityInShoppingCart(int quantity, Long userId, Long itemId) {
+    ShoppingCartDto updateQuantityInShoppingCart(int quantity, Long userId, Long itemId) {
         return shoppingCartService.updateQuantityInShoppingCart(quantity, userId, itemId);
     }
 
@@ -51,6 +51,6 @@ public class ShoppingCartController {
     @DeleteMapping
     @Operation(summary = "Delete a book", description = "Delete a book from shopping cart")
     void deleteBookFromShoppingCart(Long userId, BookDto bookDto) {
-
+        shoppingCartService.deleteBookFromShoppingCart(userId, bookDto);
     }
 }
