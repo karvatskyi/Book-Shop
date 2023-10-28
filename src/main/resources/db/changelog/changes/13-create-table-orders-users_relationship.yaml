@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-orders-users-relationship
+      author: karvatskyi
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: FK_order_user_id
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: status_id
+            referencedTableName: status
+            referencedColumnNames: id
+            constraintName: FK_order_status_id
+        - addForeignKeyConstraint:
+              baseTableName: users
+              baseColumnNames: order
+              referencedTableName: orders
+              referencedColumnNames: id
+              constraintName: FK_UserOrder

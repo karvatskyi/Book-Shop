@@ -36,7 +36,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: shippingAddress
+                  name: shipping_address
                   type: varchar(255)
               - column:
                   name: roles
@@ -47,3 +47,13 @@ databaseChangeLog:
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
+              - column:
+                  name: shopping_cart
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order
+                  type: varchar(255)
+
+            

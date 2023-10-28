@@ -47,6 +47,9 @@ public class User implements UserDetails {
     @Column(name = "shipping_address")
     private String shippingAddress;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
     @OneToOne
     @JoinColumn(name = "shopping_carts", nullable = false)
     private ShoppingCart shoppingCart;
@@ -69,9 +72,6 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
-
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

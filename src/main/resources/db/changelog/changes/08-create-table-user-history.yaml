@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-history-table
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: user_history
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+        - addForeignKeyConstraint:
+            baseTableName: user_history
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: FK_UserHistoryId
+        - addForeignKeyConstraint:
+            baseTableName: user_history
+            baseColumnNames: order_id
+            referencedTableName: orders
+            referencedColumnNames: id
+            constraintName: FK_OrderHistoryId
