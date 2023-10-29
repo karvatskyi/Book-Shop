@@ -16,15 +16,3 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     primaryKey: true
-        - addForeignKeyConstraint:
-            baseTableName: user_history
-            baseColumnNames: user_id
-            referencedTableName: users
-            referencedColumnNames: id
-            constraintName: FK_UserHistoryId
-        - addForeignKeyConstraint:
-            baseTableName: user_history
-            baseColumnNames: order_id
-            referencedTableName: orders
-            referencedColumnNames: id
-            constraintName: FK_OrderHistoryId

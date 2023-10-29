@@ -23,7 +23,7 @@ databaseChangeLog:
                   type: BIGINT
               - column:
                   name: total_prices
-                  type: NUMERIC(19, 2)
+                  type: NUMERIC
                   constraints:
                     nullable: false
               - column:

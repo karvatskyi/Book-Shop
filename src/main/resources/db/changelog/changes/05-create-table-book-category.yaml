@@ -16,15 +16,3 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     primaryKey: true
-        - addForeignKeyConstraint:
-            baseTableName: book_category
-            baseColumnNames: book_id
-            referencedTableName: books
-            referencedColumnNames: id
-            constraintName: FK_BookCategory_Book
-        - addForeignKeyConstraint:
-            baseTableName: book_category
-            baseColumnNames: category_id
-            referencedTableName: categories
-            referencedColumnNames: id
-            constraintName: FK_BookCategory_Category

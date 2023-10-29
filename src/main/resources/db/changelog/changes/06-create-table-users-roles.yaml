@@ -16,15 +16,4 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
-        - addForeignKeyConstraint:
-            baseTableName: users_roles
-            baseColumnNames: user_id
-            referencedTableName: users
-            referencedColumnNames: id
-            constraintName: FK_users_roles_user_id
-        - addForeignKeyConstraint:
-            baseTableName: users_roles
-            baseColumnNames: role_id
-            referencedTableName: roles
-            referencedColumnNames: id
-            constraintName: FK_users_roles_role_id
+

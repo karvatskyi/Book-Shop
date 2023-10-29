@@ -28,15 +28,4 @@ databaseChangeLog:
                   type: INT
                   constraints:
                     nullable: false
-        - addForeignKeyConstraint:
-            baseTableName: cart_items
-            baseColumnNames: shopping_cart_id
-            referencedTableName: shopping_cart
-            referencedColumnNames: id
-            constraintName: FK_cart_item_shopping_cart_id
-        - addForeignKeyConstraint:
-            baseTableName: cart_items
-            baseColumnNames: book_id
-            referencedTableName: books
-            referencedColumnNames: id
-            constraintName: FK_cart_item_book_id
+
