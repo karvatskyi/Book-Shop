@@ -8,12 +8,12 @@ databaseChangeLog:
             columns:
               - column:
                   name: book_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     primaryKey: true
               - column:
                   name: category_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     primaryKey: true
         - addForeignKeyConstraint:

@@ -8,19 +8,19 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: user_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: status_id
-                  type: BIGINT
+                  type: bigint
               - column:
                   name: total_prices
                   type: NUMERIC(19, 2)

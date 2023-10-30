@@ -54,6 +54,6 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: order
-                  type: varchar(255)
+                  type: bigint
 
             

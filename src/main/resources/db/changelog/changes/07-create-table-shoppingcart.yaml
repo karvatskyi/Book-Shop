@@ -15,7 +15,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: user_id
-                  type: varchar(255)
+                  type: bigint
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
