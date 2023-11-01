@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-users-table
+      id: create-table-users
       author: karvatskyi
       changes:
         - createTable:
@@ -36,10 +36,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: shipping_address
-                  type: varchar(255)
-              - column:
-                  name: roles
+                  name: shipping_addresses
                   type: varchar(255)
               - column:
                   name: is_deleted
@@ -48,12 +45,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: shopping_cart
-                  type: varchar(255)
+                  name: shopping_cart_id
+                  type: bigint
                   constraints:
                     nullable: false
-              - column:
-                  name: order
-                  type: BIGINT
-
-            

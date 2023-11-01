@@ -1,6 +1,5 @@
 package book.shop.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,10 +22,9 @@ public class ShoppingCart {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "users_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "shoppingCart")
-    @Column(name = "cart_items")
     private Set<CartItem> cartItems;
 }

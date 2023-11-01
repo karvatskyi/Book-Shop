@@ -1,32 +1,30 @@
 databaseChangeLog:
   - changeSet:
-      id: create-order-items-table
+      id: create-table-cart_items
       author: karvatskyi
       changes:
         - createTable:
-            tableName: order_item
+            tableName: cart_items
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: order_id
-                  type: BIGINT
+                  name: shopping_cart_id
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: book_id
-                  type: BIGINT
-              - column:
-                  name: quantities
-                  type: INT
-              - column:
-                  name: prices
-                  type: NUMERIC
+                  type: bigint
                   constraints:
                     nullable: false
-
+              - column:
+                  name: quantities
+                  type: int
+                  constraints:
+                    nullable: false

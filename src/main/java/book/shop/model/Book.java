@@ -37,16 +37,18 @@ public class Book {
     @Column(name = "prices", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "descriptions")
     private String description;
 
+    @Column(name = "cover_images")
     private String coverImage;
 
-    @Column(nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted = false;
 
     @ManyToMany
     @JoinTable(
-            name = "book_category",
+            name = "books_categories",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )

@@ -1,18 +1,15 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user-history-table
+      id: create-table-user_role
       author: karvatskyi
       changes:
         - createTable:
-            tableName: user_history
+            tableName: user_role
             columns:
               - column:
                   name: user_id
                   type: bigint
-                  constraints:
-                    primaryKey: true
               - column:
-                  name: order_id
+                  name: role_id
                   type: bigint
-                  constraints:
-                    primaryKey: true
+

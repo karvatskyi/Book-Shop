@@ -28,7 +28,7 @@ public class Category {
     @Column(name = "descriptions")
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
 
     @ManyToMany(mappedBy = "categories")
