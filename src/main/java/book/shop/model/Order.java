@@ -9,7 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,11 +24,10 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "order")
+    @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "order")
     private Status status;
 
     @Column(name = "total_prices", nullable = false)
@@ -42,6 +40,5 @@ public class Order {
     private String shippingAddress;
 
     @OneToMany(mappedBy = "order")
-    @Column(name = "order_items")
     private List<OrderItem> orderItems;
 }

@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-orders-table
+      id: create-table-orders
       author: karvatskyi
       changes:
         - createTable:
@@ -8,29 +8,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: user_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
-                  name: status_id
-                  type: BIGINT
-              - column:
                   name: total_prices
-                  type: NUMERIC(19, 2)
+                  type: numeric
                   constraints:
                     nullable: false
               - column:
                   name: order_dates
-                  type: TIMESTAMP
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: shipping_addresses
-                  type: VARCHAR(255)
+                  type: varchar(255)

@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-cart-items-table
+      id: create-table-cart_items
       author: karvatskyi
       changes:
         - createTable:
@@ -8,35 +8,23 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: shopping_cart_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: book_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: quantities
-                  type: INT
+                  type: int
                   constraints:
                     nullable: false
-        - addForeignKeyConstraint:
-            baseTableName: cart_items
-            baseColumnNames: shopping_cart_id
-            referencedTableName: shopping_cart
-            referencedColumnNames: id
-            constraintName: FK_cart_item_shopping_cart_id
-        - addForeignKeyConstraint:
-            baseTableName: cart_items
-            baseColumnNames: book_id
-            referencedTableName: books
-            referencedColumnNames: id
-            constraintName: FK_cart_item_book_id

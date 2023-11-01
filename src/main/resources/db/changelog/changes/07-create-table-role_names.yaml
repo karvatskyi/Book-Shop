@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-shoppingcart-table
+      id: create-table-role_names
       author: karvatskyi
       changes:
         - createTable:
-            tableName: shopping_cart
+            tableName: role_names
             columns:
               - column:
                   name: id
@@ -14,13 +14,8 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: user_id
-                  type: varchar(255)
+                  name: role_name
+                  type: varchar(50)
                   constraints:
                     nullable: false
-        - addForeignKeyConstraint:
-            baseTableName: shopping_cart
-            baseColumnNames: user_id
-            referencedTableName: users
-            referencedColumnNames: id
-            constraintName: FK_user_id
+                    unique: true

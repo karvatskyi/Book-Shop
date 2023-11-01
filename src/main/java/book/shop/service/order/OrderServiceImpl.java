@@ -1,5 +1,7 @@
 package book.shop.service.order;
 
+import book.shop.dto.order.OrderDto;
+import book.shop.mapper.OrderMapper;
 import book.shop.model.CartItem;
 import book.shop.model.Order;
 import book.shop.model.OrderItem;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
+    private final OrderMapper orderMapper;
 
     @Override
     public void completeOrder(ShoppingCart cart, String shippingAddress) {
@@ -39,6 +42,13 @@ public class OrderServiceImpl implements OrderService {
     public void updateStatus(Order order, Status statusName) {
         Order orderFromDB = orderRepository.getReferenceById(order.getId());
         orderFromDB.setStatus(statusName);
+    }
+
+    @Override
+    public List<OrderDto> getHistory(Long userId) {
+        return orderRepository.getOrdersByUserId(userId).stream()
+                .map(orderMapper::toDto)
+                .toList();
     }
 
     private BigDecimal calculatePriceOfAllBooks(Set<CartItem> cartItems) {

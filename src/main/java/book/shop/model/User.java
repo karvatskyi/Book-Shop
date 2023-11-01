@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.Collection;
@@ -44,26 +44,18 @@ public class User implements UserDetails {
     @Column(name = "last_names", nullable = false)
     private String lastName;
 
-    @Column(name = "shipping_address")
+    @Column(name = "shipping_addresses")
     private String shippingAddress;
 
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
 
     @OneToOne
-    @JoinColumn(name = "shopping_carts", nullable = false)
+    @JoinColumn(name = "shopping_cart_id", nullable = false)
     private ShoppingCart shoppingCart;
 
-    @ManyToOne
-    private Order order;
-
-    @ManyToMany
-    @JoinTable(
-            name = "user_order",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id")
-    )
-    private List<Order> orderHistory;
+    @OneToMany(mappedBy = "user")
+    private List<Order> order;
 
     @ManyToMany
     @JoinTable(

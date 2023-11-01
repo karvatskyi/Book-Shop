@@ -28,8 +28,8 @@ public class OrderController {
     }
 
     @GetMapping("/history")
-    public List<OrderDto> getOrderHistory(Order order) {
-        return userService.getHistory(order.getUser());
+    public List<OrderDto> getOrderHistory(Long userId) {
+        return orderService.getHistory(userId);
     }
 
     @ResponseStatus(HttpStatus.OK)
