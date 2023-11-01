@@ -32,7 +32,7 @@ public class BookController {
 
     private final BookMapper bookMapper;
 
-    @GetMapping
+    @GetMapping("/getAll")
     @Operation(summary = "Get all books", description = "Get a list of all available books")
     public List<BookDto> findAll(Pageable pageable) {
         return bookService.findAll(pageable);
@@ -45,7 +45,7 @@ public class BookController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
+    @PostMapping("/createBook")
     @Operation(summary = "Create a book", description = "Create a book")
     public BookDto save(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
