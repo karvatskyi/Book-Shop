@@ -1,14 +1,14 @@
 FROM openjdk:17-jdk-slim as builder
-WORKDIR bookshopapplication
+WORKDIR application
 ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} bookshopapplication.jar
-RUN java -Djarmode=layertools -jar bookshopapplication.jar extract
+COPY ${JAR_FILE} application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
 
 FROM openjdk:17-jdk-slim
-WORKDIR BookShopApplication
-COPY --from=builder bookshopapplication/dependencies/ ./
-COPY --from=builder bookshopapplication/spring-boot-loader/ ./
-COPY --from=builder bookshopapplication/snapshot-dependencies/ ./
-COPY --from=builder bookshopapplication/bookshopapplication/ ./
+WORKDIR application
+COPY --from=builder application/dependencies/ ./
+COPY --from=builder application/spring-boot-loader/ ./
+COPY --from=builder application/snapshot-dependencies/ ./
+COPY --from=builder application/application/ ./
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 EXPOSE 8080
