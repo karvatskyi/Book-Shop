@@ -2,6 +2,7 @@ package book.shop.controller;
 
 import book.shop.dto.book.BookDto;
 import book.shop.dto.category.CategoryDto;
+import book.shop.mapper.BookMapper;
 import book.shop.repository.book.BookRepository;
 import book.shop.service.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +28,8 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     private final BookRepository bookRepository;
+
+    private final BookMapper bookMapper;
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
@@ -67,6 +70,8 @@ public class CategoryController {
     @GetMapping(value = "/{id}/books")
     @Operation(summary = "Get books", description = "Get available book by category id")
     public List<BookDto> getBooksByCategory(Long id) {
-        return bookRepository.findAllByCategoryId(id);
+        return bookRepository.findAllByCategoryId(id).stream()
+                .map(bookMapper::toDto)
+                .toList();
     }
 }

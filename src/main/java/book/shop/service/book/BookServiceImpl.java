@@ -25,8 +25,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
-        Book book = bookMapper.toEntity(requestDto);
-        return bookMapper.toDto(bookRepository.save(book));
+        if (requestDto != null) {
+            Book book = bookMapper.toEntity(requestDto);
+            return bookMapper.toDto(bookRepository.save(book));
+        } else {
+            throw new RuntimeException("Input parameters can't be null");
+        }
     }
 
     @Override
