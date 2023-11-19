@@ -1,8 +1,10 @@
-package book.shop.service;
+package book.shop.service.user;
 
 import book.shop.dto.user.UserRegistrationRequestDto;
 import book.shop.dto.user.UserResponseDto;
+import book.shop.exception.EntityNotFoundException;
 import book.shop.exception.RegistrationException;
+import book.shop.mapper.OrderMapper;
 import book.shop.mapper.UserMapper;
 import book.shop.model.User;
 import book.shop.repository.user.UserRepository;
@@ -20,6 +22,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
+    private final OrderMapper orderMapper;
+
     @Override
     public UserResponseDto register(UserRegistrationRequestDto requestDto)
             throws RegistrationException {
@@ -35,5 +39,12 @@ public class UserServiceImpl implements UserService {
         user.setRoles(requestDto.getRoles());
         User savedUser = userRepository.save(user);
         return userMapper.toDto(savedUser);
+    }
+
+    @Override
+    public UserResponseDto findUserById(Long id) {
+        return userMapper.toDto(userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Can't get shopping "
+                        + "cart by id: " + id)));
     }
 }

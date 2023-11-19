@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-orders
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total_prices
+                  type: numeric
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_dates
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: shipping_addresses
+                  type: varchar(255)

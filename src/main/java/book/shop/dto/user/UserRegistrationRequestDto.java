@@ -32,5 +32,5 @@ public class UserRegistrationRequestDto {
 
     private String shippingAddress;
 
-    private Set<Role.RoleName> roles;
+    private Set<Role> roles;
 }

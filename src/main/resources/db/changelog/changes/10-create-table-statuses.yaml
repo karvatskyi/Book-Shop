@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-role_names
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: statuses
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: names
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    nullable: false

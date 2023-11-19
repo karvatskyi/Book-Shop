@@ -3,7 +3,8 @@ package book.shop.controller;
 import book.shop.dto.book.BookDto;
 import book.shop.dto.book.BookSearchParametersDto;
 import book.shop.dto.book.CreateBookRequestDto;
-import book.shop.service.BookService;
+import book.shop.mapper.BookMapper;
+import book.shop.service.book.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -29,7 +30,9 @@ public class BookController {
 
     private final BookService bookService;
 
-    @GetMapping
+    private final BookMapper bookMapper;
+
+    @GetMapping("/getAll")
     @Operation(summary = "Get all books", description = "Get a list of all available books")
     public List<BookDto> findAll(Pageable pageable) {
         return bookService.findAll(pageable);
@@ -42,16 +45,15 @@ public class BookController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
+    @PostMapping("/createBook")
     @Operation(summary = "Create a book", description = "Create a book")
     public BookDto save(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
-    @Operation(summary = "Delete a book", description = "Delete a books")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         bookService.deleteById(id);
     }

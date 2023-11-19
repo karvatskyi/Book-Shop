@@ -5,13 +5,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
@@ -20,7 +28,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Where(clause = "is_deleted=false")
 @Table(name = "users")
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,18 +44,34 @@ public class User implements UserDetails {
     @Column(name = "last_names", nullable = false)
     private String lastName;
 
-    @Column(name = "shipping_address")
+    @Column(name = "shipping_addresses")
     private String shippingAddress;
 
-    @Column(name = "role")
-    private Set<Role.RoleName> roles;
-
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
+
+    @OneToOne
+    @JoinColumn(name = "shopping_cart_id", nullable = false)
+    private ShoppingCart shoppingCart;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> order;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        for (Role roleName : roles) {
+            authorities.add(new SimpleGrantedAuthority(roleName.toString()));
+        }
+        return authorities;
     }
 
     @Override

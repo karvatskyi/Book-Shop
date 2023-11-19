@@ -1,3 +1,25 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changes/01-create-table-books.yaml
+  - include:
+      file: db/changelog/changes/02-create-table-books-category.yaml
+  - include:
+      file: db/changelog/changes/03-create-table-categories.yaml
+  - include:
+      file: db/changelog/changes/04-create-table-cart_items.yaml
+  - include:
+      file: db/changelog/changes/05-create-table-orders.yaml
+  - include:
+      file: db/changelog/changes/06-create-table-order_items.yaml
+  - include:
+      file: db/changelog/changes/07-create-table-role_names.yaml
+  - include:
+      file: db/changelog/changes/08-create-table-user-role.yaml
+  - include:
+      file: db/changelog/changes/09-create-table-shopping_carts.yaml
+  - include:
+      file: db/changelog/changes/10-create-table-statuses.yaml
+  - include:
+      file: db/changelog/changes/11-create-table-users.yaml
+  - include:
+      file: db/changelog/changes/00-create-relationship.yaml
