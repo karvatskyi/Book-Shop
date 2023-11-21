@@ -21,7 +21,8 @@ public class BookRepositoryTest {
     @Sql(scripts = {
             "classpath:database/books/add-book-to-books-table.sql",
             "classpath:database/categories/add-category-to-categories-table.sql",
-            "classpath:database/books_categories/add-book-and-category-to-books_categories-table.sql"
+            "classpath:database/books_categories/"
+                    + "add-book-and-category-to-books_categories-table.sql"
     }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(scripts = {
             "classpath:database/books_categories/cleaning-books_categories-table.sql",

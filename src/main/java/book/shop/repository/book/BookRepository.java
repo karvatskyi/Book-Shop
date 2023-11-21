@@ -1,6 +1,5 @@
 package book.shop.repository.book;
 
-import book.shop.dto.book.BookDto;
 import book.shop.model.Book;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

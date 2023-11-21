@@ -3,14 +3,14 @@ package book.shop.service.book;
 import book.shop.dto.book.BookDto;
 import book.shop.dto.book.BookSearchParametersDto;
 import book.shop.dto.book.CreateBookRequestDto;
-import book.shop.exception.EntityNotFoundException;
 import book.shop.mapper.BookMapper;
 import book.shop.model.Book;
 import book.shop.repository.book.BookRepository;
 import book.shop.repository.book.BookSpecificationBuilder;
-import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +25,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
-        if (requestDto != null) {
-            Book book = bookMapper.toEntity(requestDto);
-            return bookMapper.toDto(bookRepository.save(book));
-        } else {
-            throw new RuntimeException("Input parameters can't be null");
-        }
+        return Optional.ofNullable(requestDto)
+                .map(bookMapper::toEntity)
+                .map(bookRepository::save)
+                .map(bookMapper::toDto)
+                .orElseThrow(() -> new RuntimeException("Input parameters can't be null"));
     }
 
     @Override
@@ -43,10 +42,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto findBookById(Long id) {
-        Book book = bookRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Can't get book by id: " + id)
-        );
-        return bookMapper.toDto(book);
+        return bookRepository.findById(id)
+                .map(bookMapper::toDto)
+                .orElseThrow(() -> new RuntimeException("Can't get book by id: " + id));
     }
 
     @Override

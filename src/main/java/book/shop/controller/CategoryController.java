@@ -56,7 +56,7 @@ public class CategoryController {
     @Operation(summary = "Update a category by id", description = "Update a category by id")
     @PreAuthorize("hasRole('ADMIN')")
     public void updateCategory(Long id, CategoryDto categoryDto) {
-        categoryService.update(id, categoryDto);
+        categoryService.updateById(id, categoryDto);
     }
 
     @DeleteMapping
