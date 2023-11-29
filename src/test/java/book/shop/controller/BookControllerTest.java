@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -35,6 +37,7 @@ public class BookControllerTest {
                 .build();
     }
 
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     @DisplayName("""
             Test save method, valid result
@@ -56,7 +59,6 @@ public class BookControllerTest {
         expected.setIsbn("isbn");
         expected.setDescription("desc dto");
         String jsonRequest = objectMapper.writeValueAsString(requestDto);
-        System.out.println(jsonRequest);
 
         MvcResult result = mockMvc.perform(
                         post("/createBook")
